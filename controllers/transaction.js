@@ -9,7 +9,7 @@ const TransactionModel = require('../models/transactionModel');;
 // @access private
 const createTransaction = async (req, res) => {
 
-    const currentUser = await UserModel.findById(req.user._id);
+    const currentUser = await UserModel.findById(req.user.id);
     const { amount, totalAmount, transactionType, status, transactionId, service, paymentMethod } = req.body;
     try {
         const userId = currentUser._id;

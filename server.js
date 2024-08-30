@@ -42,8 +42,8 @@ app.get('/', (req, res) => {
 );
 
 app.use('/auth', authRouter);
-app.use('/user', userRouter);
-app.use('/transaction', transactionRouter);
+app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
+app.use('/transaction', passport.authenticate('jwt', { session: false }), transactionRouter);
 
 
 app.listen(PORT, () => {

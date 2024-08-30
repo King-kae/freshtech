@@ -5,8 +5,8 @@ const {   updateProfile,
     getUserTransactions,
     getUserProfileById, } = require('../controllers/user');
 
-userRoute.post('/update', updateProfile);
-userRoute.get('/change-password', changePassword);
+userRoute.post('/update/:id', updateProfile);
+userRoute.put('/change-password/:id', changePassword);
 userRoute.get('/transactions/:id', getUserTransactions);
 userRoute.get('/profile/:id', getUserProfileById);
 

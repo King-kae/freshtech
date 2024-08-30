@@ -1,6 +1,6 @@
 const UserModel = require('../models/userModel');
 const TransactionModel = require('../models/transactionModel');
-
+const bcrypt = require('bcrypt');
 
 
 
@@ -10,7 +10,8 @@ const TransactionModel = require('../models/transactionModel');
 // @access private
 
 const updateProfile = async (req, res) => {
-    const user = await UserModel.findById(req.user._id);
+    const id = req.params.id
+    const user = await UserModel.findById(id);
     const { fullname, email, phoneNumber } = req.body;
     try {
         user.fullname = fullname;
@@ -33,7 +34,8 @@ const updateProfile = async (req, res) => {
 // @access private
 
 const changePassword = async (req, res) => {
-    const user = await UserModel.findById(req.user._id);
+    const id = req.params.id;
+    const user = await UserModel.findById(id);
     const { oldPassword, newPassword, confirmNewPassword } = req.body;
 
     try {
