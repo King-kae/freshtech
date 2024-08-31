@@ -26,6 +26,9 @@ importers:
       express-session:
         specifier: ^1.18.0
         version: 1.18.0
+      gridfs-stream:
+        specifier: ^1.1.1
+        version: 1.1.1
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
@@ -287,6 +290,9 @@ packages:
     resolution: {integrity: sha512-5uXcUVftlQMFnWC9qu/svkWv3GTd2PfUhK/3PLkYNAe7FbqJMt3515HaxE6eRL74GdsriiwujiawdaB1BpEISg==}
     engines: {node: '>= 0.8'}
 
+  flushwritable@1.0.0:
+    resolution: {integrity: sha512-3VELfuWCLVzt5d2Gblk8qcqFro6nuwvxwMzHaENVDHI7rxcBRtMCwTk/E9FXcgh+82DSpavPNDueA9+RxXJoFg==}
+
   forwarded@0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
@@ -329,6 +335,10 @@ packages:
 
   gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
+
+  gridfs-stream@1.1.1:
+    resolution: {integrity: sha512-EcELdPIjC7tpZUiZA/8trfmszLbcsZlFyDQ8DhMtyJIMDmuLi5Vzt/056OO6FqfvY/zwiTCo1eZAqwtqrhBGMQ==}
+    engines: {node: '>= 0.4.2'}
 
   has-flag@3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
@@ -1134,6 +1144,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  flushwritable@1.0.0: {}
+
   forwarded@0.2.0: {}
 
   fresh@0.5.2: {}
@@ -1185,6 +1197,10 @@ snapshots:
   gopd@1.0.1:
     dependencies:
       get-intrinsic: 1.2.4
+
+  gridfs-stream@1.1.1:
+    dependencies:
+      flushwritable: 1.0.0
 
   has-flag@3.0.0: {}
 

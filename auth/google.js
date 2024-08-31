@@ -25,6 +25,7 @@ passport.use(new GoogleStrategy({
     },
     async function(request, accessToken, refreshToken, profile, done) {
         // return console.log(profile)
+
         try {
             const existingUser = await User.findOne({ email: profile.email });
             if (existingUser) {
@@ -32,6 +33,7 @@ passport.use(new GoogleStrategy({
             }
 
             const user = {
+                avatar: profile.picture,
                 fullname: profile.displayName,
                 email: profile.email,
                 password: await bcrypt.hash(profile.id, 10),

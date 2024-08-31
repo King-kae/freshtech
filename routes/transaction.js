@@ -5,7 +5,7 @@ const { createTransaction, getAllTransactions, getTransaction } = require('../co
 
 transactionRoute.post('/create', createTransaction);
 transactionRoute.get('/all', getAllTransactions);
-transactionRoute.get('/:id', getTransaction);
+transactionRoute.get('/:id', getTransaction); 
 
 
 

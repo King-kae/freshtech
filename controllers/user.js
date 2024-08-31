@@ -12,8 +12,9 @@ const bcrypt = require('bcrypt');
 const updateProfile = async (req, res) => {
     const id = req.params.id
     const user = await UserModel.findById(id);
-    const { fullname, email, phoneNumber } = req.body;
+    const { avatar, fullname, email, phoneNumber } = req.body;
     try {
+        user.avatar = avatar;
         user.fullname = fullname;
         user.email = email;
         user.phoneNumber = phoneNumber;

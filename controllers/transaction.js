@@ -8,30 +8,53 @@ const TransactionModel = require('../models/transactionModel');;
 // POST /api/transaction
 // @access private
 const createTransaction = async (req, res) => {
+console.log(req.user._id)
+    const currentUser = await UserModel.findById(req.user._id);
+    // console.log(currentUser)
+    const { amount, transactionType, service, phoneNumber, accountNumber, paymentMethod, numberNetwork } = req.body;
 
-    const currentUser = await UserModel.findById(req.user.id);
-    const { amount, totalAmount, transactionType, status, transactionId, service, paymentMethod } = req.body;
     try {
+        if(!amount || !transactionType || !service || !paymentMethod) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+         // Conditional validation based on service type
+         if ((service === 'Airtime' || service === 'Data') && !phoneNumber && !numberNetwork) {
+            return res.status(400).json({ message: 'Phone number and network is required for Airtime or Data services' });
+        }
+
+        if ((service === 'Electricity' || service === 'Cable TV') && !accountNumber) {
+            return res.status(400).json({ message: 'Account number is required for Electricity or Cable TV services' });
+        }
+
         const userId = currentUser._id;
+        const status = "Initiated"
+        const transactionId = Math.floor(100000 + Math.random() * 900000000000000).toString();
+        const charges = Math.floor(Math.random() * 10);
+        const totalAmount = amount + charges;
+
         const transaction = new TransactionModel({
             amount,
-            totalAmount,
+            totalAmount: totalAmount,
             transactionType,
             user: userId,
-            status,
-            transactionId,
+            status: status || 'Initiated',
+            transactionId: transactionId,
             service,
             paymentMethod
         });
-        if(currentUser.walletBalance < amount) {
+        
+        if(currentUser.walletBalance < amount + 100) {
             transaction.status = 'Failed'
             transaction.save()
             await UserModel.findByIdAndUpdate(userId, { $push: { transactions: transaction._id } });
             return res.status(400).json({ message: 'Insufficient balance' });
         }
-        currentUser.walletBalance -= amount;
+        currentUser.walletBalance -= totalAmount;
+        transaction.status = 'Completed'
         await transaction.save();
         await UserModel.findByIdAndUpdate(userId, { $push: { transactions: transaction._id } });
+        await currentUser.save();
         res.status(201).json({
             success: true,
             data: transaction,
