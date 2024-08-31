@@ -14,6 +14,18 @@ const updateProfile = async (req, res) => {
     const user = await UserModel.findById(id);
     const { avatar, fullname, email, phoneNumber } = req.body;
     try {
+        if(!user){
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            })
+        }
+        if(!fullname || !email || !phoneNumber){
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide all required fields'
+            })
+        }
         user.avatar = avatar;
         user.fullname = fullname;
         user.email = email;
